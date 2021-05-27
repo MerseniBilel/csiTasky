@@ -1,6 +1,9 @@
 # csitasky 
 
-turning a projet managing ui from dribble into flutter ui code 
+#### Turning a projet managing ui from dribble into flutter ui code 
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/57067060/119889050-08aeb400-bf2e-11eb-869a-f3de5d201456.jpg)
+
 
 
 ## Getting Started
