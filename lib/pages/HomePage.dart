@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:csitasky/globals.dart';
+import 'package:csitasky/models/Profile.dart';
+import 'package:csitasky/models/homeData.dart';
 import 'package:csitasky/widgets/HomePage/Header.dart';
 import 'package:csitasky/widgets/HomePage/ProjectScroller.dart';
 import 'package:csitasky/widgets/HomePage/SearchTask.dart';
@@ -8,6 +12,16 @@ import 'package:google_fonts/google_fonts.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    final resopnse = args['mydata'];
+    final responseData = resopnse['respomseData']['data'];
+    var jsonresponse = json.encode(responseData);
+
+    List<Homedata> listofhomedata = homedataFromJson(jsonresponse);
+    print(listofhomedata);
+
+    Profile profileData = Profile.fromJson(resopnse['respomseData']['profile']);
+    print(profileData.runtimeType);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -28,7 +42,9 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Header(userName: 'Bilel Merseni', userRole: 'Project Owner'),
+            Header(
+                userName: '${profileData.name} ${profileData.lastname}',
+                userRole: 'Team Member'),
             SearchTask(height: height),
             ProjectScroller(height: height, width: width),
             DailyTasks(heigh: height, width: width)
@@ -58,7 +74,7 @@ class DailyTasks extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Daily Tasks',
+                'Task List',
                 style: GoogleFonts.montserrat(
                   textStyle: Theme.of(context).textTheme.headline6,
                   color: kTestColor,
@@ -73,7 +89,7 @@ class DailyTasks extends StatelessWidget {
             ],
           ),
           Container(
-              height: heigh * 0.35,
+              height: heigh * 0.32,
               child: myDaylyTasks.length == 0
                   ? Image.asset(noTasks, fit: BoxFit.fitHeight)
                   : Text('bilel'))

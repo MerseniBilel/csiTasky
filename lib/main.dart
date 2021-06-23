@@ -1,5 +1,6 @@
 import 'package:csitasky/pages/DetailsPage.dart';
 import 'package:csitasky/pages/HomePage.dart';
+import 'package:csitasky/pages/LoginPage.dart';
 import 'package:csitasky/pages/WelcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '': (_) => WelcomePage(),
         '/home': (_) => HomePage(),
-        '/details': (_) => DetailsPage()
+        '/details': (_) => DetailsPage(),
+        '/login': (_) => LoginPage()
       },
       home: WelcomePage(),
     );
