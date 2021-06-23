@@ -40,7 +40,7 @@ class MainContent extends StatelessWidget {
           Stack(children: [
             Container(
               width: width,
-              height: height * 0.5,
+              height: height * 0.45,
               child: Image.asset(welcome3d, fit: BoxFit.fitHeight),
             ),
             Container(
@@ -57,7 +57,7 @@ class MainContent extends StatelessWidget {
                   color: kPurpleColor,
                   borderRadius: BorderRadius.circular(50.0)),
               child: TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/home'),
+                onPressed: () => Navigator.pushNamed(context, '/login'),
                 child: Text(
                   'Get Started',
                   style: GoogleFonts.montserrat(
