@@ -15,5 +15,6 @@ const welcome3d2 = 'assets/icons/Saly-42.png';
 const noTasks = 'assets/icons/Saly-11.png';
 const addTaskIcon = 'assets/icons/add.svg';
 const loginImage = 'assets/icons/Saly-1.png';
+const about = 'assets/icons/about.png';
 
-const endpoint = 'https://ed0a86dd9f7e.ngrok.io/';
+const endpoint = 'https://c77a4c659dc1.ngrok.io/';

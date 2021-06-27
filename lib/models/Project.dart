@@ -1,72 +1,75 @@
 // To parse this JSON data, do
 //
-//     final homedata = homedataFromJson(jsonString);
+//     final project = projectFromJson(jsonString);
 
 import 'dart:convert';
 
-List<Homedata> homedataFromJson(String str) =>
-    List<Homedata>.from(json.decode(str).map((x) => Homedata.fromJson(x)));
+List<Project> projectFromJson(String str) =>
+    List<Project>.from(json.decode(str).map((x) => Project.fromJson(x)));
 
-String homedataToJson(List<Homedata> data) =>
+String projectToJson(List<Project> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Homedata {
-  Homedata({
+class Project {
+  Project({
+    required this.started,
+    required this.id,
     required this.projectName,
     required this.projectDesc,
-    required this.creationDate,
     required this.projectOwner,
-    required this.team,
   });
 
+  bool started;
+  String id;
   String projectName;
   String projectDesc;
-  DateTime creationDate;
   ProjectOwner projectOwner;
-  List<ProjectOwner> team;
 
-  factory Homedata.fromJson(Map<String, dynamic> json) => Homedata(
+  factory Project.fromJson(Map<String, dynamic> json) => Project(
+        started: json["started"],
+        id: json["_id"],
         projectName: json["projectName"],
         projectDesc: json["projectDesc"],
-        creationDate: DateTime.parse(json["creationDate"]),
         projectOwner: ProjectOwner.fromJson(json["projectOwner"]),
-        team: List<ProjectOwner>.from(
-            json["team"].map((x) => ProjectOwner.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
+        "started": started,
+        "_id": id,
         "projectName": projectName,
         "projectDesc": projectDesc,
-        "creationDate": creationDate.toIso8601String(),
         "projectOwner": projectOwner.toJson(),
-        "team": List<dynamic>.from(team.map((x) => x.toJson())),
       };
 }
 
 class ProjectOwner {
   ProjectOwner({
+    required this.id,
     required this.name,
     required this.lastname,
-    required this.avatar,
     required this.email,
+    required this.avatar,
   });
 
+  String id;
   String name;
   String lastname;
-  String avatar;
   String email;
+  String avatar;
 
   factory ProjectOwner.fromJson(Map<String, dynamic> json) => ProjectOwner(
+        id: json["_id"],
         name: json["name"],
         lastname: json["lastname"],
-        avatar: json["avatar"],
         email: json["email"],
+        avatar: json["avatar"],
       );
 
   Map<String, dynamic> toJson() => {
+        "_id": id,
         "name": name,
         "lastname": lastname,
-        "avatar": avatar,
         "email": email,
+        "avatar": avatar,
       };
 }
