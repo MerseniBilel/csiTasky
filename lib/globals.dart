@@ -17,4 +17,4 @@ const addTaskIcon = 'assets/icons/add.svg';
 const loginImage = 'assets/icons/Saly-1.png';
 const about = 'assets/icons/about.png';
 
-const endpoint = 'https://cb12d9f234ef.ngrok.io/';
+const endpoint = 'https://f44532e2a02c.ngrok.io/';

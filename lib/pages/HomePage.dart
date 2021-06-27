@@ -2,7 +2,6 @@ import 'package:csitasky/globals.dart';
 import 'package:csitasky/models/Profile.dart';
 import 'package:csitasky/models/Project.dart';
 import 'package:csitasky/models/Task.dart';
-import 'package:csitasky/models/slideup.dart';
 import 'package:csitasky/widgets/HomePage/Header.dart';
 import 'package:csitasky/widgets/HomePage/ProjectList.dart';
 import 'package:csitasky/widgets/HomePage/SearchTask.dart';

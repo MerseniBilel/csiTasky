@@ -57,7 +57,7 @@ class ProjectList extends StatelessWidget {
                 final item = snapshot.data[index];
                 return GestureDetector(
                   onTap: () => Navigator.pushNamed(context, '/details',
-                      arguments: {'id': item.id}),
+                      arguments: {'item': item}),
                   child: OneProject(width: width, height: height, item: item),
                 );
               },
