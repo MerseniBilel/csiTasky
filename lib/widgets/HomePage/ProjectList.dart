@@ -54,107 +54,127 @@ class ProjectList extends StatelessWidget {
               itemCount: snapshot.data.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12.0),
-                  width: width * .70,
-                  margin: EdgeInsets.all(3.0),
-                  height: height * 0.25,
-                  decoration: BoxDecoration(
-                      color: index % 2 == 0 ? kPurpleColor : kMustardColor,
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(10.0),
-                        child: Text(
-                          snapshot.data[index].projectName,
-                          style: GoogleFonts.montserrat(
-                            textStyle: Theme.of(context).textTheme.headline6,
-                            fontWeight: FontWeight.bold,
-                            color: kprojectnameColor,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Center(
-                          child: Text(
-                            snapshot.data[index].projectDesc,
-                            style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w400,
-                              color: kprojectnameColor,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.white,
-                      ),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Project Owner :',
-                              style: GoogleFonts.montserrat(
-                                fontWeight: FontWeight.w500,
-                                color: kprojectnameColor,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.white,
-                      ),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80'),
-                            ),
-                            Text(
-                              snapshot.data[index].projectOwner.email,
-                              style: GoogleFonts.montserrat(
-                                fontWeight: FontWeight.w500,
-                                color: kprojectnameColor,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        child: Center(
-                          child: Text(
-                            snapshot.data[index].started
-                                ? 'Started'
-                                : 'Pending',
-                            style: GoogleFonts.montserrat(
-                              textStyle: Theme.of(context).textTheme.headline6,
-                              fontWeight: FontWeight.bold,
-                              color: kprojectnameColor,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                final item = snapshot.data[index];
+                return GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, '/details',
+                      arguments: {'id': item.id}),
+                  child: OneProject(width: width, height: height, item: item),
                 );
               },
             ),
           );
         }
       },
+    );
+  }
+}
+
+class OneProject extends StatelessWidget {
+  const OneProject({
+    Key? key,
+    required this.width,
+    required this.height,
+    required this.item,
+  }) : super(key: key);
+
+  final double width;
+  final double height;
+  final item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12.0),
+      width: width * .70,
+      margin: EdgeInsets.all(3.0),
+      height: height * 0.25,
+      decoration: BoxDecoration(
+          color: kPurpleColor, borderRadius: BorderRadius.circular(30)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.all(10.0),
+            child: Text(
+              item.projectName,
+              style: GoogleFonts.montserrat(
+                textStyle: Theme.of(context).textTheme.headline6,
+                fontWeight: FontWeight.bold,
+                color: kprojectnameColor,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          Container(
+            child: Center(
+              child: Text(
+                item.projectDesc,
+                style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.w400,
+                  color: kprojectnameColor,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+          ),
+          Divider(
+            color: Colors.white,
+          ),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Project Owner :',
+                  style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w500,
+                    color: kprojectnameColor,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(
+            color: Colors.white,
+          ),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80'),
+                ),
+                Text(
+                  item.projectOwner.email,
+                  style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w500,
+                    color: kprojectnameColor,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: Center(
+              child: Text(
+                item.started ? 'Started' : 'Pending',
+                style: GoogleFonts.montserrat(
+                  textStyle: Theme.of(context).textTheme.headline6,
+                  fontWeight: FontWeight.bold,
+                  color: kprojectnameColor,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

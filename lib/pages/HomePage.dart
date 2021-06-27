@@ -2,10 +2,10 @@ import 'package:csitasky/globals.dart';
 import 'package:csitasky/models/Profile.dart';
 import 'package:csitasky/models/Project.dart';
 import 'package:csitasky/models/Task.dart';
+import 'package:csitasky/models/slideup.dart';
 import 'package:csitasky/widgets/HomePage/Header.dart';
 import 'package:csitasky/widgets/HomePage/ProjectList.dart';
 import 'package:csitasky/widgets/HomePage/SearchTask.dart';
-import 'package:csitasky/widgets/demoChart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -41,14 +41,190 @@ class _HomePageState extends State<HomePage> {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     final resopnse = args['mydata'];
     Profile profileData = Profile.fromJson(resopnse);
-
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SlidingUpPanel(
         minHeight: 50,
         maxHeight: height - 120,
-        panel: PanelWidget(width: width),
+        panel: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: 15),
+                  height: 6,
+                  width: width / 4,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: 30),
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(right: 15, top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Team Member',
+                      style: GoogleFonts.montserrat(
+                        color: kTestColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Active',
+                          style: GoogleFonts.montserrat(
+                            color: kTestColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Icon(
+                          Icons.verified,
+                          size: 20,
+                          color: Colors.green,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      '2021-06-22',
+                      style: GoogleFonts.montserrat(
+                        color: kTestColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Name : ',
+                          style: GoogleFonts.montserrat(
+                            color: kTestColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          profileData.user.name,
+                          style: GoogleFonts.montserrat(
+                            color: kTestColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Lastname : ',
+                          style: GoogleFonts.montserrat(
+                            color: kTestColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          profileData.user.lastname,
+                          style: GoogleFonts.montserrat(
+                            color: kTestColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Email : ',
+                          style: GoogleFonts.montserrat(
+                            color: kTestColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          profileData.user.email,
+                          style: GoogleFonts.montserrat(
+                            color: kTestColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Phone : ',
+                          style: GoogleFonts.montserrat(
+                            color: kTestColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          profileData.user.phoneNumber,
+                          style: GoogleFonts.montserrat(
+                            color: kTestColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 15.0, top: 15),
+                child: Text(
+                  'About Me',
+                  style: GoogleFonts.montserrat(
+                    color: kTestColor,
+                    fontWeight: FontWeight.w500,
+                    textStyle: Theme.of(context).textTheme.headline5,
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 25.0, top: 10),
+                child: Text(
+                  'I enjoy being challenged and engaging with projects that require me to work outside my comfort and knowledge set, as continuing to learn new languages and development techniques are important to me and the success of your organization.',
+                  style: GoogleFonts.montserrat(
+                    color: kTestColor,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              Center(
+                child: Container(
+                  height: 300,
+                  child: Image.asset(about, fit: BoxFit.fitHeight),
+                ),
+              )
+            ],
+          ),
+        ),
         body: SafeArea(
             child: Container(
           padding: EdgeInsets.symmetric(
@@ -90,200 +266,6 @@ class _HomePageState extends State<HomePage> {
           ),
         )),
       ),
-    );
-  }
-}
-
-class PanelWidget extends StatefulWidget {
-  const PanelWidget({
-    Key? key,
-    required this.width,
-  }) : super(key: key);
-
-  final double width;
-
-  @override
-  _PanelWidgetState createState() => _PanelWidgetState();
-}
-
-class _PanelWidgetState extends State<PanelWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Center(
-          child: Container(
-            margin: EdgeInsets.only(top: 15),
-            height: 6,
-            width: widget.width / 4,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-          ),
-        ),
-        Center(
-          child: Container(
-            margin: EdgeInsets.only(top: 30),
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(
-                  'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'),
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 15, top: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Team Member',
-                style: GoogleFonts.montserrat(
-                  color: kTestColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Active',
-                    style: GoogleFonts.montserrat(
-                      color: kTestColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Icon(
-                    Icons.verified,
-                    size: 20,
-                    color: Colors.green,
-                  ),
-                ],
-              ),
-              Text(
-                '2021-06-22',
-                style: GoogleFonts.montserrat(
-                  color: kTestColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Divider(),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Name : ',
-                    style: GoogleFonts.montserrat(
-                      color: kTestColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    'Bilel',
-                    style: GoogleFonts.montserrat(
-                      color: kTestColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Lastname : ',
-                    style: GoogleFonts.montserrat(
-                      color: kTestColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    'Merseni',
-                    style: GoogleFonts.montserrat(
-                      color: kTestColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Email : ',
-                    style: GoogleFonts.montserrat(
-                      color: kTestColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    'Bilelmerseni7016@gmail.com',
-                    style: GoogleFonts.montserrat(
-                      color: kTestColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Phone : ',
-                    style: GoogleFonts.montserrat(
-                      color: kTestColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    '+216 26 248 366',
-                    style: GoogleFonts.montserrat(
-                      color: kTestColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 15.0, top: 15),
-          child: Text(
-            'About Me',
-            style: GoogleFonts.montserrat(
-              color: kTestColor,
-              fontWeight: FontWeight.w500,
-              textStyle: Theme.of(context).textTheme.headline5,
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 25.0, top: 10),
-          child: Text(
-            'I enjoy being challenged and engaging with projects that require me to work outside my comfort and knowledge set, as continuing to learn new languages and development techniques are important to me and the success of your organization.',
-            style: GoogleFonts.montserrat(
-              color: kTestColor,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
-        Center(
-          child: Container(
-            height: 300,
-            child: Image.asset(about, fit: BoxFit.fitHeight),
-          ),
-        )
-      ],
     );
   }
 }
